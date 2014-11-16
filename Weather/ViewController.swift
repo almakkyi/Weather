@@ -16,11 +16,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var weatherTable: UITableView!
     @IBOutlet weak var pageController: UIPageControl!
     
+    var locations:[String] = ["Coventry,uk"]
+    var weatehrInfo = [WeatherInfo]()
+    var threads:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.getWeather()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
         self.weatherTable.delegate = self
         self.weatherTable.dataSource = self
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -34,7 +40,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return weatehrInfo.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -43,6 +49,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
+    func getWeather() {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        self.threads++
+        let location = self.locations[0]
+        Weather.getWeather(location, completion: {(result: Array<WeatherInfo>) in
+            self.weatehrInfo = result
+            dispatch_async(dispatch_get_main_queue(), {
+                self.weatherTable.reloadData()
+                self.threads--
+                if(self.threads == 0) {
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                }
+            })
+        })
+    }
     
     /*
     // MARK: - Navigation
