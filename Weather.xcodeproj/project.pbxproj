@@ -16,6 +16,7 @@
 		0F81ACDD1A18B7F400B2179F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F81ACDB1A18B7F400B2179F /* LaunchScreen.xib */; };
 		0F81ACE91A18B7F400B2179F /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81ACE81A18B7F400B2179F /* WeatherTests.swift */; };
 		0FA462701A2A5B8700146F51 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4626F1A2A5B8700146F51 /* CustomTableViewCell.swift */; };
+		0FA462721A2A5D1600146F51 /* CustomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0FA462711A2A5D1600146F51 /* CustomTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		0F81ACE71A18B7F400B2179F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F81ACE81A18B7F400B2179F /* WeatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTests.swift; sourceTree = "<group>"; };
 		0FA4626F1A2A5B8700146F51 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		0FA462711A2A5D1600146F51 /* CustomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				0FA4626F1A2A5B8700146F51 /* CustomTableViewCell.swift */,
 				0F6882921A192FC5000E14FE /* WeatherFeed.swift */,
 				0F81ACD61A18B7F400B2179F /* Main.storyboard */,
+				0FA462711A2A5D1600146F51 /* CustomTableViewCell.xib */,
 				0F81ACD91A18B7F400B2179F /* Images.xcassets */,
 				0F81ACDB1A18B7F400B2179F /* LaunchScreen.xib */,
 				0F81ACD11A18B7F400B2179F /* Weather.xcdatamodeld */,
@@ -203,6 +206,7 @@
 			files = (
 				0F81ACD81A18B7F400B2179F /* Main.storyboard in Resources */,
 				0F81ACDD1A18B7F400B2179F /* LaunchScreen.xib in Resources */,
+				0FA462721A2A5D1600146F51 /* CustomTableViewCell.xib in Resources */,
 				0F81ACDA1A18B7F400B2179F /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
