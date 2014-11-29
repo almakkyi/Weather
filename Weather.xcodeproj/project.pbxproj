@@ -15,6 +15,7 @@
 		0F81ACDA1A18B7F400B2179F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0F81ACD91A18B7F400B2179F /* Images.xcassets */; };
 		0F81ACDD1A18B7F400B2179F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F81ACDB1A18B7F400B2179F /* LaunchScreen.xib */; };
 		0F81ACE91A18B7F400B2179F /* WeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F81ACE81A18B7F400B2179F /* WeatherTests.swift */; };
+		0FA462701A2A5B8700146F51 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FA4626F1A2A5B8700146F51 /* CustomTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		0F81ACE21A18B7F400B2179F /* WeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0F81ACE71A18B7F400B2179F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0F81ACE81A18B7F400B2179F /* WeatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherTests.swift; sourceTree = "<group>"; };
+		0FA4626F1A2A5B8700146F51 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			children = (
 				0F81ACCF1A18B7F400B2179F /* AppDelegate.swift */,
 				0F81ACD41A18B7F400B2179F /* ViewController.swift */,
+				0FA4626F1A2A5B8700146F51 /* CustomTableViewCell.swift */,
 				0F6882921A192FC5000E14FE /* WeatherFeed.swift */,
 				0F81ACD61A18B7F400B2179F /* Main.storyboard */,
 				0F81ACD91A18B7F400B2179F /* Images.xcassets */,
@@ -219,6 +222,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0F6882931A192FC5000E14FE /* WeatherFeed.swift in Sources */,
+				0FA462701A2A5B8700146F51 /* CustomTableViewCell.swift in Sources */,
 				0F81ACD51A18B7F400B2179F /* ViewController.swift in Sources */,
 				0F81ACD31A18B7F400B2179F /* Weather.xcdatamodeld in Sources */,
 				0F81ACD01A18B7F400B2179F /* AppDelegate.swift in Sources */,

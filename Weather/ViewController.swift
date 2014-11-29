@@ -45,7 +45,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("dayCell", forIndexPath: indexPath) as UITableViewCell
-        //cell.textLabel.text = "Hello"
+        cell.textLabel.text = "Hello"
+        //cell.textLabel.text = String(weatehrInfo[indexPath.row].maxTemp)
         return cell
     }
     

@@ -26,7 +26,7 @@ struct WeatherInfo {
 class Weather {
     
     class func getWeather(location:String, completion:Array<WeatherInfo>->()) {
-        let url = NSURL(string: "http://api.openweathermap.org/data/2.5/forecast/daily?q=\(location)&mode=json&units=metric&cnt=10")
+        let url = NSURL(string: "http://api.openweathermap.org/data/2.5/forecast/daily?q=\(location)&mode=json&units=metric&cnt=10  ")
         println("url = \(url)")
         if let tempURL:NSURL = url {
             //println("1")
