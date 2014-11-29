@@ -24,9 +24,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         self.getWeather()
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
-        self.weatherTable.delegate = self
-        self.weatherTable.dataSource = self
+        //self.weatherTable.delegate = self
+        //self.weatherTable.dataSource = self
         
+        var nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
+        weatherTable.registerNib(nib, forCellReuseIdentifier: "customCell")
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -40,13 +42,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weatehrInfo.count
+        return 5
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("dayCell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel.text = "Hello"
+        //let cell = tableView.dequeueReusableCellWithIdentifier("dayCell", forIndexPath: indexPath) as UITableViewCell
+        //cell.textLabel.text = "Hello"
         //cell.textLabel.text = String(weatehrInfo[indexPath.row].maxTemp)
+
+        var cell:CustomTableViewCell = self.weatherTable.dequeueReusableCellWithIdentifier("customCell") as CustomTableViewCell
+        cell.loadItem("Hello")
         return cell
     }
     
