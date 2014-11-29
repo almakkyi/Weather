@@ -19,6 +19,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var locations:[String] = ["Coventry,uk"]
     var weatehrInfo = [WeatherInfo]()
     var threads:Int = 0
+    var img = UIImage(named: "heavy_rain")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return weatehrInfo.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -51,7 +52,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //cell.textLabel.text = String(weatehrInfo[indexPath.row].maxTemp)
 
         var cell:CustomTableViewCell = self.weatherTable.dequeueReusableCellWithIdentifier("customCell") as CustomTableViewCell
-        cell.loadItem("Hello")
+        cell.loadItem("Sunday", icon: img!)
         return cell
     }
     

@@ -14,19 +14,32 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fT-f9-m7D">
-                        <rect key="frame" x="8" y="11" width="42" height="21"/>
+                        <rect key="frame" x="8" y="11" width="42" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zkx-Gy-CE8">
+                        <rect key="frame" x="135" y="2" width="50" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="LE1-p0-Uqo"/>
+                            <constraint firstAttribute="height" constant="40" id="X2i-KQ-SRF"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 <constraints>
                     <constraint firstAttribute="centerY" secondItem="5fT-f9-m7D" secondAttribute="centerY" constant="0.25" id="1Vi-pp-vfG"/>
                     <constraint firstItem="5fT-f9-m7D" firstAttribute="leading" secondItem="bkh-zw-zda" secondAttribute="leadingMargin" id="2cf-I7-cFY"/>
+                    <constraint firstItem="zkx-Gy-CE8" firstAttribute="leading" secondItem="5fT-f9-m7D" secondAttribute="trailing" constant="85" id="3ZS-YR-8xx"/>
+                    <constraint firstAttribute="centerY" secondItem="zkx-Gy-CE8" secondAttribute="centerY" id="Vhe-6z-bDY"/>
+                    <constraint firstItem="zkx-Gy-CE8" firstAttribute="top" secondItem="bkh-zw-zda" secondAttribute="topMargin" constant="-6" id="vfY-HU-24A"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="dayLabel" destination="5fT-f9-m7D" id="yGi-Cm-FrU"/>
+                <outlet property="weatherIcon" destination="zkx-Gy-CE8" id="g6D-2U-PIL"/>
             </connections>
             <point key="canvasLocation" x="354" y="250"/>
         </tableViewCell>

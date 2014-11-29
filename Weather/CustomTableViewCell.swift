@@ -11,6 +11,7 @@ import UIKit
 class CustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var weatherIcon: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,8 +24,9 @@ class CustomTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func loadItem(date: String) {
-        dayLabel.text = "Hello"
+    func loadItem(date: String, icon: UIImage) {
+        dayLabel.text = date
+        weatherIcon.image = icon
     }
 
 }
