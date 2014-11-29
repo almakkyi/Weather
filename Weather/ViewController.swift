@@ -52,7 +52,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         //cell.textLabel.text = String(weatehrInfo[indexPath.row].maxTemp)
 
         var cell:CustomTableViewCell = self.weatherTable.dequeueReusableCellWithIdentifier("customCell") as CustomTableViewCell
-        cell.loadItem("Sunday", icon: img!)
+        println(weatehrInfo[indexPath.row].location)
+        cell.loadItem(String(weatehrInfo[indexPath.row].day), icon: img!)
         return cell
     }
     

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct WeatherInfo {
     var location:String
@@ -20,7 +21,7 @@ struct WeatherInfo {
     var mornTemp:Int
     var main:String
     var description:String
-    var icon:String
+    var icon:UIImage
 }
 
 class Weather {
@@ -51,7 +52,7 @@ class Weather {
                         var weatherArray = [WeatherInfo]()
                         var daysNum = 0
                         for day in days {
-                            var WeatherDay = WeatherInfo(location: "", day: daysNum, date: NSDate(), dayTemp: 0, minTemp: 0, maxTemp: 0, nightTemp: 0, eveTemp: 0, mornTemp: 0, main: "", description: "", icon: "")
+                            var WeatherDay = WeatherInfo(location: "", day: daysNum, date: NSDate(), dayTemp: 0, minTemp: 0, maxTemp: 0, nightTemp: 0, eveTemp: 0, mornTemp: 0, main: "", description: "", icon: UIImage())
                             //println(daysNum)
                             if let timeStamp:Int = day["dt"] as? Int {
                                 //println("\(daysNum): \(timeStamp)")
@@ -94,7 +95,12 @@ class Weather {
                                             WeatherDay.description = description
                                         }
                                         if let icon:String = weather0["icon"] as? String {
-                                            WeatherDay.icon = icon
+                                            let iconURL = NSURL(string: "http://openweathermap.org/img/w/\(icon)")
+                                            if let iconData = NSData(contentsOfURL: iconURL!) {
+                                                if let image:UIImage = UIImage(data: iconData) {
+                                                    WeatherDay.icon = image
+                                                }
+                                            }
                                         }
                                     }
                                 }
