@@ -26,7 +26,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="day" destination="bkh-zw-zda" id="7pe-Nt-12t"/>
+                <outlet property="day" destination="5fT-f9-m7D" id="9eV-cQ-x2n"/>
             </connections>
             <point key="canvasLocation" x="354" y="250"/>
         </tableViewCell>
