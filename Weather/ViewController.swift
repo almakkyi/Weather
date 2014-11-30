@@ -24,10 +24,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var weekDay:Int = 0
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
         self.getWeather()
         self.getDay()
-        println("Day: \(self.weekDay)")
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
         
         var nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
@@ -37,7 +38,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -50,7 +50,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell:CustomTableViewCell = self.weatherTable.dequeueReusableCellWithIdentifier("customCell") as CustomTableViewCell
-        cell.loadItem(weekDays[(weekDay + indexPath.row)%7], icon: weatehrInfo[indexPath.row].icon)
+        cell.loadItem(weekDays[(weekDay + indexPath.row)%7], icon: weatehrInfo[indexPath.row].icon, maxTemp: weatehrInfo[indexPath.row].maxTemp, minTemp: weatehrInfo[indexPath.row].minTemp)
         return cell
     }
     

@@ -12,6 +12,8 @@ class CustomTableViewCell: UITableViewCell {
     
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var weatherIcon: UIImageView!
+    @IBOutlet weak var maxTempLabel: UILabel!
+    @IBOutlet weak var minTempLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,9 +26,11 @@ class CustomTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func loadItem(date: String, icon: UIImage) {
+    func loadItem(date: String, icon: UIImage, maxTemp: Int, minTemp: Int) {
         dayLabel.text = date
         weatherIcon.image = icon
+        maxTempLabel.text = "\(maxTemp)°"
+        minTempLabel.text = "\(minTemp)°"
     }
 
 }
