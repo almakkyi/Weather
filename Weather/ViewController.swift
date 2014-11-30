@@ -17,20 +17,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var pageController: UIPageControl!
     
     var locations:[String] = ["Coventry,uk"]
+    var weekDays:[String] = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
     var weatehrInfo = [WeatherInfo]()
     var threads:Int = 0
     var img = UIImage(named: "heavy_rain")
+    var weekDay:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.getWeather()
+        self.getDay()
+        println("Day: \(self.weekDay)")
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
-        //self.weatherTable.delegate = self
-        //self.weatherTable.dataSource = self
         
         var nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
         weatherTable.registerNib(nib, forCellReuseIdentifier: "customCell")
-        // Do any additional setup after loading the view, typically from a nib.
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,13 +49,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        //let cell = tableView.dequeueReusableCellWithIdentifier("dayCell", forIndexPath: indexPath) as UITableViewCell
-        //cell.textLabel.text = "Hello"
-        //cell.textLabel.text = String(weatehrInfo[indexPath.row].maxTemp)
-
         var cell:CustomTableViewCell = self.weatherTable.dequeueReusableCellWithIdentifier("customCell") as CustomTableViewCell
-        println(weatehrInfo[indexPath.row].location)
-        cell.loadItem(String(weatehrInfo[indexPath.row].day), icon: img!)
+        cell.loadItem(weekDays[(weekDay + indexPath.row)%7], icon: weatehrInfo[indexPath.row].icon)
         return cell
     }
     
@@ -71,6 +68,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 }
             })
         })
+    }
+    
+    func getDay() {
+        let date = NSDate()
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components(NSCalendarUnit.CalendarUnitWeekday, fromDate: date)
+        let weekday = components.weekday
+        self.weekDay = weekday
     }
     
     /*

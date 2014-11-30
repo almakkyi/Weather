@@ -95,7 +95,7 @@ class Weather {
                                             WeatherDay.description = description
                                         }
                                         if let icon:String = weather0["icon"] as? String {
-                                            let iconURL = NSURL(string: "http://openweathermap.org/img/w/\(icon)")
+                                            let iconURL = NSURL(string: "http://openweathermap.org/img/w/\(icon).png")
                                             if let iconData = NSData(contentsOfURL: iconURL!) {
                                                 if let image:UIImage = UIImage(data: iconData) {
                                                     WeatherDay.icon = image
