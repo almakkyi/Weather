@@ -22,6 +22,7 @@ struct WeatherInfo {
     var main:String
     var description:String
     var icon:UIImage
+    var iconCode:String
 }
 
 class Weather {
@@ -52,7 +53,7 @@ class Weather {
                         var weatherArray = [WeatherInfo]()
                         var daysNum = 0
                         for day in days {
-                            var WeatherDay = WeatherInfo(location: "", day: daysNum, date: NSDate(), dayTemp: 0, minTemp: 0, maxTemp: 0, nightTemp: 0, eveTemp: 0, mornTemp: 0, main: "", description: "", icon: UIImage())
+                            var WeatherDay = WeatherInfo(location: "", day: daysNum, date: NSDate(), dayTemp: 0, minTemp: 0, maxTemp: 0, nightTemp: 0, eveTemp: 0, mornTemp: 0, main: "", description: "", icon: UIImage(), iconCode: "")
                             //println(daysNum)
                             if let timeStamp:Int = day["dt"] as? Int {
                                 //println("\(daysNum): \(timeStamp)")
@@ -95,6 +96,7 @@ class Weather {
                                             WeatherDay.description = description
                                         }
                                         if let icon:String = weather0["icon"] as? String {
+                                            WeatherDay.iconCode = icon
                                             let iconURL = NSURL(string: "http://openweathermap.org/img/w/\(icon).png")
                                             if let iconData = NSData(contentsOfURL: iconURL!) {
                                                 if let image:UIImage = UIImage(data: iconData) {

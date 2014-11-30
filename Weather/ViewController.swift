@@ -18,11 +18,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var locations:[String] = ["Coventry,uk"]
     var weekDays:[String] = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    var mainWeatherIcons: [String: String] = ["01d": "sunny", "02d": "sunny_to_cloudy", "03d": "overcast", "04d": "overcast", "09d": "heavy_rain", "10d": "sun_rain", "11d": "thunder", "13d": "snowy", "50d": "fog", "01n": "", "02n": "", "03n": "overcast", "04n": "overcast", "09n": "heavy_rain", "10n": "showers", "11n": "thunder", "13n": "snowy", "50n": "fog"]
     var weatehrInfo = [WeatherInfo]()
     var threads:Int = 0
     var img = UIImage(named: "heavy_rain")
     var weekDay:Int = 0
     var currentPage:Int = 0
+    var dayornight:Int = 1
     
     override func viewDidLoad() {
         
@@ -31,7 +33,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.getWeather()
         self.getDay()
         
-        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
+        self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg")!)
         
         var nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
         weatherTable.registerNib(nib, forCellReuseIdentifier: "customCell")
@@ -84,6 +86,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func setMain() {
         self.locationLabel.text = locations[currentPage]
         self.currentTempLabel.text = "\(self.weatehrInfo[0].dayTemp)°"
+        if (Array(weatehrInfo[0].iconCode)[Array(weatehrInfo[0].iconCode).count-1] == "d") {
+            println("Day")
+            self.dayornight = 1
+            //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "clearSky.jpg")!)
+        } else if (Array(weatehrInfo[0].iconCode)[Array(weatehrInfo[0].iconCode).count-1] == "n") {
+            println("Night")
+            self.dayornight = 0
+            //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
+        }
+        if let mainIconName = mainWeatherIcons.indexForKey(weatehrInfo[0].iconCode) {
+            println(mainWeatherIcons[mainIconName].1)
+            self.mainWeatherImage.image = UIImage(named: "\(mainWeatherIcons[mainIconName].1)")
+        }
     }
     
     /*
