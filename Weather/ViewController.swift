@@ -69,18 +69,37 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
         println("swipeLeft")
-        self.pageController.currentPage++
-        println("page: \(self.pageController.currentPage)")
-        self.setMain()
-        self.getWeather()
+        UIView.animateWithDuration(1.0, animations: {
+                println("animate")
+                self.weatherTable.alpha = 0.0
+                self.mainWeatherImage.alpha = 0.0
+                self.currentTempLabel.alpha = 0.0
+                self.locationLabel.alpha = 0.0
+            }, completion: {
+                (value: Bool) in
+                self.pageController.currentPage++
+                println("page: \(self.pageController.currentPage)")
+                self.setMain()
+                self.getWeather()
+        })
     }
     
     @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
         println("swipeRight")
-        self.pageController.currentPage--
-        println("page: \(self.pageController.currentPage)")
-        self.setMain()
-        self.getWeather()
+        UIView.animateWithDuration(1.0, animations: {
+            println("animate")
+            self.weatherTable.alpha = 0.0
+            self.mainWeatherImage.alpha = 0.0
+            self.currentTempLabel.alpha = 0.0
+            self.locationLabel.alpha = 0.0
+            }, completion: {
+                (value: Bool) in
+                self.pageController.currentPage--
+                println("page: \(self.pageController.currentPage)")
+                self.setMain()
+                self.getWeather()
+        })
+
     }
     
     func getWeather() {
@@ -96,6 +115,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     self.setMain()
                 }
+                UIView.animateWithDuration(1.0, animations: {
+                    self.weatherTable.alpha = 1.0
+                    self.mainWeatherImage.alpha = 1.0
+                    self.currentTempLabel.alpha = 1.0
+                    self.locationLabel.alpha = 1.0
+                })
             })
         })
     }
