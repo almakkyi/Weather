@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="full moon" translatesAutoresizingMaskIntoConstraints="NO" id="c3O-wQ-gqa">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="full_moon" translatesAutoresizingMaskIntoConstraints="NO" id="c3O-wQ-gqa">
                                 <rect key="frame" x="244" y="10" width="112" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="HjB-zl-62e"/>
@@ -67,11 +67,28 @@
                                     <outlet property="delegate" destination="vXZ-lx-hvc" id="nYS-6t-AeY"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u8t-HL-796">
+                                <rect key="frame" x="552" y="563" width="32" height="32"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Hhh-bz-5iK"/>
+                                    <constraint firstAttribute="width" constant="32" id="sGV-sx-psv"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="menuButton">
+                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="xAr-i9-cKE" kind="show" id="MaX-3N-aQJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.01176470588" green="0.058823529409999999" blue="0.18039215689999999" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="UFe-zZ-Ehd" firstAttribute="top" secondItem="y65-Ur-fM2" secondAttribute="bottom" constant="14" id="3Qy-UU-cpo"/>
                             <constraint firstItem="kyg-O8-hXt" firstAttribute="top" secondItem="HOk-mv-YA8" secondAttribute="bottom" constant="8" id="5XR-et-Uil"/>
+                            <constraint firstItem="u8t-HL-796" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="8Ld-jX-KEF"/>
                             <constraint firstAttribute="centerX" secondItem="c3O-wQ-gqa" secondAttribute="centerX" id="CkX-WC-uSg"/>
                             <constraint firstItem="HOk-mv-YA8" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="FsY-Em-I1B"/>
                             <constraint firstItem="y65-Ur-fM2" firstAttribute="top" secondItem="c3O-wQ-gqa" secondAttribute="bottom" constant="8" id="L44-np-UWJ"/>
@@ -85,6 +102,7 @@
                             <constraint firstItem="y65-Ur-fM2" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="jtN-30-i23"/>
                             <constraint firstItem="HOk-mv-YA8" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="lBh-Mh-bZg"/>
                             <constraint firstItem="c3O-wQ-gqa" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="-10" id="p3I-6I-Fuc"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="u8t-HL-796" secondAttribute="bottom" constant="5" id="vJY-8q-78X"/>
                             <constraint firstAttribute="centerX" secondItem="y65-Ur-fM2" secondAttribute="centerX" id="yf4-Zl-4a1"/>
                         </constraints>
                         <variation key="default">
@@ -93,6 +111,7 @@
                             </mask>
                         </variation>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="currentTempLabel" destination="UFe-zZ-Ehd" id="kwW-Rg-IX1"/>
                         <outlet property="left" destination="4jq-Ca-2cS" id="Lms-hF-R7m"/>
@@ -116,8 +135,48 @@
                 </swipeGestureRecognizer>
             </objects>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="8zu-DY-uCJ">
+            <objects>
+                <viewController id="xAr-i9-cKE" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MFG-YM-8cz"/>
+                        <viewControllerLayoutGuide type="bottom" id="geH-Va-ppW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Nlj-gB-oAP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ix0-hP-Ej8">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <color key="barTintColor" red="0.02745098248" green="0.1019607931" blue="0.25098040700000002" alpha="1" colorSpace="deviceRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="Locations" id="H9V-vE-f7E">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="QM1-ua-drT">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" red="0.02745098248" green="0.1019607931" blue="0.25098040700000002" alpha="1" colorSpace="deviceRGB"/>
+                        <constraints>
+                            <constraint firstItem="Ix0-hP-Ej8" firstAttribute="leading" secondItem="Nlj-gB-oAP" secondAttribute="leadingMargin" constant="-16" id="XTK-aZ-MA1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ix0-hP-Ej8" secondAttribute="trailing" constant="-16" id="aYo-2e-Nfu"/>
+                            <constraint firstItem="Ix0-hP-Ej8" firstAttribute="top" secondItem="MFG-YM-8cz" secondAttribute="bottom" id="b1y-4R-3KC"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5OP-gm-gt1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="389" y="1006"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="full moon" width="112" height="112"/>
+        <image name="full_moon" width="112" height="112"/>
+        <image name="menuButton" width="512" height="512"/>
     </resources>
 </document>
