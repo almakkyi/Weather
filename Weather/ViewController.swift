@@ -69,37 +69,40 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
         println("swipeLeft")
-        UIView.animateWithDuration(1.0, animations: {
+        if self.pageController.currentPage < self.pageController.numberOfPages - 1{
+            UIView.animateWithDuration(1.0, animations: {
                 println("animate")
                 self.weatherTable.alpha = 0.0
                 self.mainWeatherImage.alpha = 0.0
                 self.currentTempLabel.alpha = 0.0
                 self.locationLabel.alpha = 0.0
-            }, completion: {
-                (value: Bool) in
-                self.pageController.currentPage++
-                println("page: \(self.pageController.currentPage)")
-                self.setMain()
-                self.getWeather()
-        })
+                }, completion: {
+                    (value: Bool) in
+                    self.pageController.currentPage++
+                    println("page: \(self.pageController.currentPage)")
+                    self.setMain()
+                    self.getWeather()
+            })
+        }
     }
     
     @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
         println("swipeRight")
-        UIView.animateWithDuration(1.0, animations: {
-            println("animate")
-            self.weatherTable.alpha = 0.0
-            self.mainWeatherImage.alpha = 0.0
-            self.currentTempLabel.alpha = 0.0
-            self.locationLabel.alpha = 0.0
-            }, completion: {
-                (value: Bool) in
-                self.pageController.currentPage--
-                println("page: \(self.pageController.currentPage)")
-                self.setMain()
-                self.getWeather()
-        })
-
+        if self.pageController.currentPage > 0 {
+            UIView.animateWithDuration(1.0, animations: {
+                println("animate")
+                self.weatherTable.alpha = 0.0
+                self.mainWeatherImage.alpha = 0.0
+                self.currentTempLabel.alpha = 0.0
+                self.locationLabel.alpha = 0.0
+                }, completion: {
+                    (value: Bool) in
+                    self.pageController.currentPage--
+                    println("page: \(self.pageController.currentPage)")
+                    self.setMain()
+                    self.getWeather()
+            })
+        }
     }
     
     func getWeather() {
