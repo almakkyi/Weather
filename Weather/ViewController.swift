@@ -18,14 +18,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet var left: UISwipeGestureRecognizer!
     @IBOutlet var right: UISwipeGestureRecognizer!
     
-    var locations:[String] = ["Coventry,uk"]
+    var locations:[String] = ["Coventry,uk", "London,uk"]
     var weekDays:[String] = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
     var mainWeatherIcons: [String: String] = ["01d": "sunny", "02d": "sunny_to_cloudy", "03d": "overcast", "04d": "overcast", "09d": "heavy_rain", "10d": "sun_rain", "11d": "thunder", "13d": "snowy", "50d": "fog", "01n": "", "02n": "", "03n": "overcast", "04n": "overcast", "09n": "heavy_rain", "10n": "showers", "11n": "thunder", "13n": "snowy", "50n": "fog"]
     var weatehrInfo = [WeatherInfo]()
     var threads:Int = 0
     var img = UIImage(named: "heavy_rain")
     var weekDay:Int = 0
-    var currentPage:Int = 0
     var dayornight:Int = 1
     
     override func viewDidLoad() {
@@ -35,6 +34,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Adding gestures for swiping left and right
         self.view.addGestureRecognizer(self.right)
         self.view.addGestureRecognizer(self.left)
+        
+        // Page indicator
+        self.pageController.numberOfPages = locations.count
+        self.pageController.currentPage = 0
         
         self.getWeather()
         self.getDay()
@@ -66,16 +69,24 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
         println("swipeLeft")
+        self.pageController.currentPage++
+        println("page: \(self.pageController.currentPage)")
+        self.setMain()
+        self.getWeather()
     }
     
     @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
         println("swipeRight")
+        self.pageController.currentPage--
+        println("page: \(self.pageController.currentPage)")
+        self.setMain()
+        self.getWeather()
     }
     
     func getWeather() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         self.threads++
-        let location = self.locations[0]
+        let location = self.locations[self.pageController.currentPage]
         Weather.getWeather(location, completion: {(result: Array<WeatherInfo>) in
             self.weatehrInfo = result
             dispatch_async(dispatch_get_main_queue(), {
@@ -98,8 +109,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func setMain() {
-        self.locationLabel.text = locations[currentPage]
-        self.currentTempLabel.text = "\(self.weatehrInfo[0].dayTemp)°"
+        self.locationLabel.text = locations[self.pageController.currentPage]
+        self.currentTempLabel.text = "\(self.weatehrInfo[self.pageController.currentPage].dayTemp)°"
         if (Array(weatehrInfo[0].iconCode)[Array(weatehrInfo[0].iconCode).count-1] == "d") {
             println("Day")
             self.dayornight = 1
