@@ -22,6 +22,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var threads:Int = 0
     var img = UIImage(named: "heavy_rain")
     var weekDay:Int = 0
+    var currentPage:Int = 0
     
     override func viewDidLoad() {
         
@@ -29,6 +30,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.getWeather()
         self.getDay()
+        
         self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
         
         var nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
@@ -65,6 +67,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 self.threads--
                 if(self.threads == 0) {
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    self.setMain()
                 }
             })
         })
@@ -76,6 +79,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let components = calendar.components(NSCalendarUnit.CalendarUnitWeekday, fromDate: date)
         let weekday = components.weekday
         self.weekDay = weekday
+    }
+    
+    func setMain() {
+        self.locationLabel.text = locations[currentPage]
+        self.currentTempLabel.text = "\(self.weatehrInfo[0].dayTemp)°"
     }
     
     /*
