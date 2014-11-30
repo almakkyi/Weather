@@ -95,13 +95,25 @@
                     </view>
                     <connections>
                         <outlet property="currentTempLabel" destination="UFe-zZ-Ehd" id="kwW-Rg-IX1"/>
+                        <outlet property="left" destination="4jq-Ca-2cS" id="Lms-hF-R7m"/>
                         <outlet property="locationLabel" destination="y65-Ur-fM2" id="jo2-wt-BeD"/>
                         <outlet property="mainWeatherImage" destination="c3O-wQ-gqa" id="0sw-XN-OMF"/>
                         <outlet property="pageController" destination="kyg-O8-hXt" id="XTz-0t-fsl"/>
+                        <outlet property="right" destination="6do-io-U9h" id="Zj3-w4-hGc"/>
                         <outlet property="weatherTable" destination="HOk-mv-YA8" id="8Fh-TL-wBj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="4jq-Ca-2cS">
+                    <connections>
+                        <action selector="swipeLeft:" destination="vXZ-lx-hvc" id="geb-fD-WLj"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="6do-io-U9h">
+                    <connections>
+                        <action selector="swipeRight:" destination="vXZ-lx-hvc" id="dg7-DL-qWs"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
         </scene>
     </scenes>

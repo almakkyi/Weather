@@ -15,6 +15,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var currentTempLabel: UILabel!
     @IBOutlet weak var weatherTable: UITableView!
     @IBOutlet weak var pageController: UIPageControl!
+    @IBOutlet var left: UISwipeGestureRecognizer!
+    @IBOutlet var right: UISwipeGestureRecognizer!
     
     var locations:[String] = ["Coventry,uk"]
     var weekDays:[String] = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
@@ -29,6 +31,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        // Adding gestures for swiping left and right
+        self.view.addGestureRecognizer(self.right)
+        self.view.addGestureRecognizer(self.left)
         
         self.getWeather()
         self.getDay()
@@ -56,6 +62,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         var cell:CustomTableViewCell = self.weatherTable.dequeueReusableCellWithIdentifier("customCell") as CustomTableViewCell
         cell.loadItem(weekDays[(weekDay + indexPath.row)%7], icon: weatehrInfo[indexPath.row].icon, maxTemp: weatehrInfo[indexPath.row].maxTemp, minTemp: weatehrInfo[indexPath.row].minTemp)
         return cell
+    }
+    
+    @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
+        println("swipeLeft")
+    }
+    
+    @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
+        println("swipeRight")
     }
     
     func getWeather() {
