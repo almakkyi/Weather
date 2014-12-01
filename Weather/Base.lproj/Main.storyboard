@@ -219,10 +219,10 @@
             </objects>
             <point key="canvasLocation" x="1207" y="272"/>
         </scene>
-        <!--View Controller-->
+        <!--Add Location View Controller-->
         <scene sceneID="TXk-tF-U02">
             <objects>
-                <viewController id="7eX-e1-jRG" sceneMemberID="viewController">
+                <viewController id="7eX-e1-jRG" customClass="AddLocationViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="lHc-kf-y4r"/>
                         <viewControllerLayoutGuide type="bottom" id="rkK-In-CIX"/>
@@ -241,9 +241,15 @@
                                     <navigationItem title="Add Location" id="6ea-lp-GDM">
                                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="kog-hv-0CC">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="cancel:" destination="7eX-e1-jRG" id="jv9-Lb-OrD"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="T3U-mq-qPS">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <connections>
+                                                <action selector="done:" destination="7eX-e1-jRG" id="zzW-0C-Epk"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -284,6 +290,10 @@
                         </constraints>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="searchBar" destination="B9A-Zy-KnS" id="tLv-x2-Jph"/>
+                        <outlet property="suggestedLocationsTable" destination="zav-m5-H0z" id="aSj-f3-lJY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h1b-Iw-Ffk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

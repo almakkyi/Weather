@@ -18,7 +18,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet var left: UISwipeGestureRecognizer!
     @IBOutlet var right: UISwipeGestureRecognizer!
     
-    var locations:[String] = ["Coventry,uk", "London,uk", "Glasgow,uk"]
+    var locations:[String] = ["Coventry,uk", "London,uk", "Glasgow,uk", "Damascus,syr"]
     var weekDays:[String] = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
     var mainWeatherIcons: [String: String] = ["01d": "sunny", "02d": "sunny_to_cloudy", "03d": "overcast", "04d": "overcast", "09d": "heavy_rain", "10d": "sun_rain", "11d": "thunder", "13d": "snowy", "50d": "fog", "01n": "full_moon", "02n": "", "03n": "overcast", "04n": "overcast", "09n": "heavy_rain", "10n": "showers", "11n": "thunder", "13n": "snowy", "50n": "fog"]
     var weatehrInfo = [WeatherInfo]()
