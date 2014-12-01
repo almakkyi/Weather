@@ -7,19 +7,41 @@
 //
 
 import UIKit
+import CoreData
 
 class LocationsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    var managedObjectContext:NSManagedObjectContext?
 
     @IBOutlet weak var locationsTable: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let context = appDelegate.managedObjectContext {
+            self.managedObjectContext = context
+            println(context)
+        }
         self.locationsTable.dataSource = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func closeView(sender: UIBarButtonItem) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    @IBAction func addLocation(sender: UIBarButtonItem) {
+        println("addLocation")
+    }
+    
+    func addItem(city:String, country:String) {
+        let newLocation:Location = NSEntityDescription.insertNewObjectForEntityForName("Location", inManagedObjectContext: self.managedObjectContext!) as Location
+        newLocation.city = city
+        newLocation.country = country
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
