@@ -15,10 +15,12 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var suggestedLocationsTable: UITableView!
     
     var suggestions = [Suggestion]()
+    var threads:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.suggestedLocationsTable.dataSource = self
+        self.getSuggestions()
         // Do any additional setup after loading the view.
     }
 
@@ -32,12 +34,12 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return suggestions.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("suggestedLocationCell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel.text = "Hello"
+        cell.textLabel.text = suggestions[indexPath.row].name
         return cell
     }
     
@@ -46,14 +48,21 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @IBAction func done(sender: UIBarButtonItem) {
-        println(suggestions)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func getSuggestions() {
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        self.threads++
         Suggestions.getSuggestions("dew", completion: {(result: Array<Suggestion>) in
-            println(result)
             self.suggestions = result
+            dispatch_async(dispatch_get_main_queue(), {
+                self.suggestedLocationsTable.reloadData()
+                self.threads--
+                if (self.threads == 0) {
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                }
+            })
         })
     }
 
