@@ -9,17 +9,19 @@
 import UIKit
 import Foundation
 
-class AddLocationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AddLocationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var suggestedLocationsTable: UITableView!
     
     var suggestions = [Suggestion]()
     var threads:Int = 0
+    var searchString: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.suggestedLocationsTable.dataSource = self
+        self.searchBar.delegate = self
         self.getSuggestions()
         // Do any additional setup after loading the view.
     }
@@ -51,10 +53,18 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        println(self.searchBar.text)
+        self.searchString = self.searchBar.text
+        if(searchString != "") {
+            getSuggestions()
+        }
+    }
+    
     func getSuggestions() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         self.threads++
-        Suggestions.getSuggestions("dew", completion: {(result: Array<Suggestion>) in
+        Suggestions.getSuggestions(searchString, completion: {(result: Array<Suggestion>) in
             self.suggestions = result
             dispatch_async(dispatch_get_main_queue(), {
                 self.suggestedLocationsTable.reloadData()
