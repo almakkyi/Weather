@@ -7,15 +7,18 @@
 //
 
 import UIKit
+import Foundation
 
-class AddLocationViewController: UIViewController {
+class AddLocationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var suggestedLocationsTable: UITableView!
     
+    var suggestions = [Suggestion]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        self.suggestedLocationsTable.dataSource = self
         // Do any additional setup after loading the view.
     }
 
@@ -24,12 +27,34 @@ class AddLocationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("suggestedLocationCell", forIndexPath: indexPath) as UITableViewCell
+        cell.textLabel.text = "Hello"
+        return cell
+    }
+    
     @IBAction func cancel(sender: UIBarButtonItem) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func done(sender: UIBarButtonItem) {
+        println(suggestions)
         self.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func getSuggestions() {
+        Suggestions.getSuggestions("dew", completion: {(result: Array<Suggestion>) in
+            println(result)
+            self.suggestions = result
+        })
     }
 
     /*
