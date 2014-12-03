@@ -41,7 +41,7 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("suggestedLocationCell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel.text = suggestions[indexPath.row].name
+        cell.textLabel.text = "\(suggestions[indexPath.row].name), \(suggestions[indexPath.row].country)"
         return cell
     }
     
@@ -70,6 +70,16 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             })
         })
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let destination = segue.destinationViewController as? LocationsViewController {
+            println("Locations View Controller")
+            let indexPath = self.suggestedLocationsTable.indexPathForSelectedRow()
+            if let row:Int = indexPath?.row {
+                println("row: \(row)")
+            }
+        }
     }
 
     /*

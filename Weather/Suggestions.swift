@@ -9,7 +9,9 @@
 import Foundation
 
 struct Suggestion{
+    var id: Int
     var name: String
+    var country: String
 }
 
 class Suggestions {
@@ -36,9 +38,17 @@ class Suggestions {
                         var suggestionsArray = [Suggestion]()
                         var suggestionsNum = 0
                         for suggestion in list {
-                            var OneSuggestion = Suggestion(name: "")
+                            var OneSuggestion = Suggestion(id: 0, name: "", country: "")
                             if let name: String = suggestion["name"] as? String {
                                 OneSuggestion.name = name
+                            }
+                            if let id: Int = suggestion["id"] as? Int {
+                                OneSuggestion.id = id
+                            }
+                            if let sys:NSDictionary = suggestion["sys"] as? NSDictionary {
+                                if let country:String = sys["country"] as? String {
+                                    OneSuggestion.country = country
+                                }
                             }
                             suggestionsArray.append(OneSuggestion)
                             suggestionsNum++
