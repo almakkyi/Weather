@@ -245,12 +245,6 @@
                                                 <action selector="cancel:" destination="7eX-e1-jRG" id="jv9-Lb-OrD"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="T3U-mq-qPS">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <connections>
-                                                <action selector="done:" destination="7eX-e1-jRG" id="zzW-0C-Epk"/>
-                                            </connections>
-                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -264,7 +258,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="suggestedLocationCell" textLabel="gbv-x5-GPY" style="IBUITableViewCellStyleDefault" id="UQI-Oc-i5C">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="suggestedLocationCell" textLabel="gbv-x5-GPY" style="IBUITableViewCellStyleDefault" id="UQI-Oc-i5C">
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UQI-Oc-i5C" id="5ED-Ql-cPy">

@@ -49,10 +49,6 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func done(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
         println(self.searchBar.text)
         self.searchString = self.searchBar.text
