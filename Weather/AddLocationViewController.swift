@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import CoreData
 
 class AddLocationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
 
@@ -18,10 +19,23 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
     var threads:Int = 0
     var searchString: String = ""
     
+    lazy var managedObjectContext : NSManagedObjectContext? = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let managedObjectContext = appDelegate.managedObjectContext {
+            return managedObjectContext
+        }
+        else {
+            return nil
+        }
+        }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.suggestedLocationsTable.dataSource = self
+        
         self.searchBar.delegate = self
+        self.suggestedLocationsTable.delegate = self
+        self.suggestedLocationsTable.dataSource = self
+        
         self.getSuggestions()
         // Do any additional setup after loading the view.
     }
@@ -43,6 +57,13 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
         let cell = tableView.dequeueReusableCellWithIdentifier("suggestedLocationCell", forIndexPath: indexPath) as UITableViewCell
         cell.textLabel.text = "\(suggestions[indexPath.row].name), \(suggestions[indexPath.row].country)"
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        println(indexPath.row)
+        self.addItem("\(suggestions[indexPath.row].id)", city: suggestions[indexPath.row].name, country: suggestions[indexPath.row].country)
+        NSNotificationCenter.defaultCenter().postNotificationName("reload", object: nil)
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func cancel(sender: UIBarButtonItem) {
@@ -72,14 +93,12 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
         })
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destination = segue.destinationViewController as? LocationsViewController {
-            println("Locations View Controller")
-            let indexPath = self.suggestedLocationsTable.indexPathForSelectedRow()
-            if let row:Int = indexPath?.row {
-                println("row: \(row)")
-            }
-        }
+    func addItem(id: String, city:String, country:String) {
+        let newLocation:Location = NSEntityDescription.insertNewObjectForEntityForName("Location", inManagedObjectContext: self.managedObjectContext!) as Location
+        newLocation.id = id
+        newLocation.city = city
+        newLocation.country = country
+        println("Location Added: id=\(id), city=\(city), country=\(country)")
     }
 
     /*

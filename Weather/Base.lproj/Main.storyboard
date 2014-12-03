@@ -217,7 +217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5OP-gm-gt1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1542" y="-419"/>
+            <point key="canvasLocation" x="1219" y="284"/>
         </scene>
         <!--Add Location View Controller-->
         <scene sceneID="TXk-tF-U02">
@@ -258,7 +258,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="suggestedLocationCell" textLabel="gbv-x5-GPY" style="IBUITableViewCellStyleDefault" id="UQI-Oc-i5C">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="suggestedLocationCell" textLabel="gbv-x5-GPY" style="IBUITableViewCellStyleDefault" id="UQI-Oc-i5C">
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UQI-Oc-i5C" id="5ED-Ql-cPy">
@@ -273,9 +273,6 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <segue destination="xAr-i9-cKE" kind="show" identifier="locationAdded" id="hm2-eA-Ovy"/>
-                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -302,14 +299,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h1b-Iw-Ffk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1310" y="456"/>
+            <point key="canvasLocation" x="1906" y="284"/>
         </scene>
     </scenes>
     <resources>
         <image name="full_moon" width="112" height="112"/>
         <image name="menuButton" width="512" height="512"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="hm2-eA-Ovy"/>
-    </inferredMetricsTieBreakers>
 </document>

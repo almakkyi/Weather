@@ -11,6 +11,7 @@ import CoreData
 
 class Location: NSManagedObject {
 
+    @NSManaged var id: String
     @NSManaged var city: String
     @NSManaged var country: String
 
