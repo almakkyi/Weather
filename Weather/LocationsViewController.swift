@@ -14,6 +14,8 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var locationsTable: UITableView!
     
     var locations = [Location]()
+    var detailedLocation = [Current]()
+    var threads:Int = 0
     
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -33,6 +35,8 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
         self.locationsTable.dataSource = self
         
         self.getLocations()
+        self.getDetailedLocations()
+        println(self.detailedLocation)
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,6 +45,7 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     @IBAction func closeView(sender: UIBarButtonItem) {
+        NSNotificationCenter.defaultCenter().postNotificationName("reloadMain", object: nil)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -49,12 +54,14 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return locations.count
+        return detailedLocation.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel.text = "Hello"
+        cell.textLabel.text = self.detailedLocation[indexPath.row].city
+//        cell.textLabel.text = self.detailedLocation[0].main
+//        cell.textLabel.text = "Hello"
         return cell
     }
     
@@ -66,8 +73,26 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
         }
     }
     
+    func getDetailedLocations() {
+        self.detailedLocation = [Current]()
+        for (var i:Int = 0; i<self.locations.count; i++) {
+            CurrentWeather.getCurrent(self.locations[i].id, completion: {(result: Current) in
+                self.detailedLocation.append(result)
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.locationsTable.reloadData()
+                    self.threads--
+                    if(self.threads == 0) {
+                        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                    }
+                })
+            })
+        }
+    }
+    
     func reloadTable(notification: NSNotification){
         self.getLocations()
+        self.getDetailedLocations()
+        println(self.detailedLocation.count)
         self.locationsTable.reloadData()
     }
     

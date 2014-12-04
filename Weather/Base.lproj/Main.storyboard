@@ -131,6 +131,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
+            <point key="canvasLocation" x="511" y="284"/>
         </scene>
         <!--Locations View Controller-->
         <scene sceneID="8zu-DY-uCJ">
@@ -172,7 +173,7 @@
                                 <rect key="frame" x="16" y="64" width="568" height="516"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="locationCell" textLabel="E7V-kd-6Jt" style="IBUITableViewCellStyleDefault" id="4k0-pG-P3f">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="locationCell" textLabel="E7V-kd-6Jt" style="IBUITableViewCellStyleDefault" id="4k0-pG-P3f">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4k0-pG-P3f" id="SoR-go-edC">

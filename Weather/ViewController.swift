@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -18,7 +19,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet var left: UISwipeGestureRecognizer!
     @IBOutlet var right: UISwipeGestureRecognizer!
     
-    var locations:[String] = ["Coventry,uk", "London,uk", "Glasgow,uk", "Damascus,syr"]
+    var locations:[Location] = []
     var weekDays:[String] = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
     var mainWeatherIcons: [String: String] = ["01d": "sunny", "02d": "sunny_to_cloudy", "03d": "overcast", "04d": "overcast", "09d": "heavy_rain", "10d": "sun_rain", "11d": "thunder", "13d": "snowy", "50d": "fog", "01n": "full_moon", "02n": "", "03n": "overcast", "04n": "overcast", "09n": "heavy_rain", "10n": "showers", "11n": "thunder", "13n": "snowy", "50n": "fog"]
     var weatehrInfo = [WeatherInfo]()
@@ -27,9 +28,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var weekDay:Int = 0
     var dayornight:Int = 1
     
+    lazy var managedObjectContext : NSManagedObjectContext? = {
+        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
+        if let managedObjectContext = appDelegate.managedObjectContext {
+            return managedObjectContext
+        }
+        else {
+            return nil
+        }
+    }()
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        self.getLocations()
 
         // Hide the content when the app starts until the data loads
         self.weatherTable.alpha = 0.0
@@ -52,6 +65,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         var nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
         weatherTable.registerNib(nib, forCellReuseIdentifier: "customCell")
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "reload:", name: "reloadMain", object: nil)
 
     }
 
@@ -114,7 +129,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func getWeather() {
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         self.threads++
-        let location = self.locations[self.pageController.currentPage]
+        let location = "\(self.locations[self.pageController.currentPage].city),\(self.locations[self.pageController.currentPage].country)"
         Weather.getWeather(location, completion: {(result: Array<WeatherInfo>) in
             self.weatehrInfo = result
             dispatch_async(dispatch_get_main_queue(), {
@@ -143,21 +158,46 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func setMain() {
-        self.locationLabel.text = locations[self.pageController.currentPage]
+        self.locationLabel.text = locations[self.pageController.currentPage].city
         self.currentTempLabel.text = "\(self.weatehrInfo[self.pageController.currentPage].dayTemp)°"
         if (Array(weatehrInfo[0].iconCode)[Array(weatehrInfo[0].iconCode).count-1] == "d") {
-            println("Day")
+//            println("Day")
             self.dayornight = 1
             //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "clearSky.jpg")!)
         } else if (Array(weatehrInfo[0].iconCode)[Array(weatehrInfo[0].iconCode).count-1] == "n") {
-            println("Night")
+//            println("Night")
             self.dayornight = 0
             //self.view.backgroundColor = UIColor(patternImage: UIImage(named: "bg.png")!)
         }
         if let mainIconName = mainWeatherIcons.indexForKey(weatehrInfo[0].iconCode) {
-            println(mainWeatherIcons[mainIconName].1)
+//            println(mainWeatherIcons[mainIconName].1)
             self.mainWeatherImage.image = UIImage(named: "\(mainWeatherIcons[mainIconName].1)")
         }
+    }
+    
+    func getLocations() {
+        let fetchRequest = NSFetchRequest(entityName: "Location")
+        if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Location] {
+            self.locations = fetchResults
+            println("locations.count=\(locations.count)")
+        }
+    }
+    
+    func reload(notification: NSNotification) {
+        self.getLocations()
+        
+        // Hide the content when the app starts until the data loads
+        self.weatherTable.alpha = 0.0
+        self.mainWeatherImage.alpha = 0.0
+        self.currentTempLabel.alpha = 0.0
+        self.locationLabel.alpha = 0.0
+        
+        // Page indicator
+        self.pageController.numberOfPages = locations.count
+        self.pageController.currentPage = 0
+        
+        self.getWeather()
+        self.getDay()
     }
     
     /*

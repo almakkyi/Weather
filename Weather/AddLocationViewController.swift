@@ -61,6 +61,7 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         println(indexPath.row)
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         self.addItem("\(suggestions[indexPath.row].id)", city: suggestions[indexPath.row].name, country: suggestions[indexPath.row].country)
         NSNotificationCenter.defaultCenter().postNotificationName("reload", object: nil)
         self.dismissViewControllerAnimated(true, completion: nil)
