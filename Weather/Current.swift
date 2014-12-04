@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Current {
     var id:String
@@ -15,11 +16,18 @@ struct Current {
     var temp_min:Int
     var temp_max:Int
     var icon:String
+    var iconImg: UIImage
 }
 
 class CurrentWeather {
-    class func getCurrent(id: String, completion: Current->()) {
-        let url = NSURL(string: "http://api.openweathermap.org/data/2.5/group?id=\(id)&units=metric")
+    
+    class func getCurrents(ids: Array<String>, completion: Array<Current>->()) {
+        var idString:String = ids[0]
+        for (var i=1 ; i<(ids.count); i++) {
+            idString = idString+","+ids[i]
+            println(idString)
+        }
+        let url = NSURL(string: "http://api.openweathermap.org/data/2.5/group?id=\(idString)&units=metric")
         if let tempURL:NSURL = url {
             let urlReq = NSURLRequest(URL: tempURL)
             let queue = NSOperationQueue()
@@ -39,35 +47,47 @@ class CurrentWeather {
                     }
                     
                     if let list:Array<AnyObject> = json["list"] as? Array<AnyObject> {
-                        let listObject: AnyObject = list[0] as AnyObject
-                        var newCurrent = Current(id: "", city: "", country: "", temp_min: 0, temp_max: 0, icon: "")
-                        if let id:Int = listObject["id"] as? Int {
-                            newCurrent.id = "\(id)"
-                        }
-                        if let sys:NSDictionary = listObject["sys"] as? NSDictionary {
-                            if let country:String = sys["country"] as? String {
-                                newCurrent.country = country
+                        var newCurrents = [Current]()
+                        var idsNum = 0
+                        for id in list {
+                            var newCurrent = Current(id: "", city: "", country: "", temp_min: 0, temp_max: 0, icon: "", iconImg: UIImage())
+                            if let id:Int = id["id"] as? Int {
+                                newCurrent.id = "\(id)"
                             }
-                        }
-                        if let name:String = listObject["name"] as? String {
-                            newCurrent.city = name
-                        }
-                        if let main:NSDictionary = listObject["main"] as? NSDictionary {
-                            if let temp_min:Int = main["temp_min"] as? Int {
-                                newCurrent.temp_min = temp_min
-                            }
-                            if let temp_max:Int = main["temp_max"] as? Int {
-                                newCurrent.temp_max = temp_max
-                            }
-                        }
-                        if let weather:Array<AnyObject> = listObject["weather"] as? Array<AnyObject> {
-                            if let weather0:NSDictionary = weather[0] as? NSDictionary {
-                                if let icon:String = weather0["id"] as? String {
-                                    newCurrent.icon = icon
+                            if let sys:NSDictionary = id["sys"] as? NSDictionary {
+                                if let country:String = sys["country"] as? String {
+                                    newCurrent.country = country
                                 }
                             }
+                            if let name:String = id["name"] as? String {
+                                newCurrent.city = name
+                            }
+                            if let main:NSDictionary = id["main"] as? NSDictionary {
+                                if let temp_min:Int = main["temp_min"] as? Int {
+                                    newCurrent.temp_min = temp_min
+                                }
+                                if let temp_max:Int = main["temp_max"] as? Int {
+                                    newCurrent.temp_max = temp_max
+                                }
+                            }
+                            if let weather:Array<AnyObject> = id["weather"] as? Array<AnyObject> {
+                                if let weather0:NSDictionary = weather[0] as? NSDictionary {
+                                    if let icon:String = weather0["icon"] as? String {
+                                        println("IconCode= \(icon)")
+                                        newCurrent.icon = icon
+                                        let iconURL = NSURL(string: "http://openweathermap.org/img/w/\(icon).png")
+                                        if let iconData = NSData(contentsOfURL: iconURL!) {
+                                            if let image:UIImage = UIImage(data: iconData) {
+                                                newCurrent.iconImg = image
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            newCurrents.append(newCurrent)
+                            idsNum++
                         }
-                        completion(newCurrent)
+                        completion(newCurrents)
                     }
                 }
             })

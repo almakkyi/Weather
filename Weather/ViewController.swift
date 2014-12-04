@@ -21,7 +21,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     var locations:[Location] = []
     var weekDays:[String] = ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
-    var mainWeatherIcons: [String: String] = ["01d": "sunny", "02d": "sunny_to_cloudy", "03d": "overcast", "04d": "overcast", "09d": "heavy_rain", "10d": "sun_rain", "11d": "thunder", "13d": "snowy", "50d": "fog", "01n": "full_moon", "02n": "", "03n": "overcast", "04n": "overcast", "09n": "heavy_rain", "10n": "showers", "11n": "thunder", "13n": "snowy", "50n": "fog"]
+    var mainWeatherIcons: [String: String] = ["01d": "sunny", "02d": "sunny_to_cloudy", "03d": "overcast", "04d": "overcast", "09d": "heavy_rain", "10d": "sun_rain", "11d": "thunder", "13d": "snowy", "50d": "fog", "01n": "full_moon", "02n": "overcast", "03n": "overcast", "04n": "overcast", "09n": "heavy_rain", "10n": "showers", "11n": "thunder", "13n": "snowy", "50n": "fog"]
     var weatehrInfo = [WeatherInfo]()
     var threads:Int = 0
     var img = UIImage(named: "heavy_rain")
@@ -43,6 +43,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         
         self.getLocations()
+        
+        //TESTING
+//        CurrentWeather.getCurrents(["1","2","3","4","5"])
 
         // Hide the content when the app starts until the data loads
         self.weatherTable.alpha = 0.0
@@ -91,7 +94,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func swipeLeft(sender: UISwipeGestureRecognizer) {
         println("swipeLeft")
         if self.pageController.currentPage < self.pageController.numberOfPages - 1{
-            UIView.animateWithDuration(1.0, animations: {
+            UIView.animateWithDuration(0.3, animations: {
                 println("animate")
                 self.weatherTable.alpha = 0.0
                 self.mainWeatherImage.alpha = 0.0
@@ -110,7 +113,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBAction func swipeRight(sender: UISwipeGestureRecognizer) {
         println("swipeRight")
         if self.pageController.currentPage > 0 {
-            UIView.animateWithDuration(1.0, animations: {
+            UIView.animateWithDuration(0.3, animations: {
                 println("animate")
                 self.weatherTable.alpha = 0.0
                 self.mainWeatherImage.alpha = 0.0
@@ -139,7 +142,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                     UIApplication.sharedApplication().networkActivityIndicatorVisible = false
                     self.setMain()
                 }
-                UIView.animateWithDuration(1.0, animations: {
+                UIView.animateWithDuration(0.3, animations: {
                     self.weatherTable.alpha = 1.0
                     self.mainWeatherImage.alpha = 1.0
                     self.currentTempLabel.alpha = 1.0

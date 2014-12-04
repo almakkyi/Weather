@@ -15,7 +15,9 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
     
     var locations = [Location]()
     var detailedLocation = [Current]()
+    var locationsIDs = [String]()
     var threads:Int = 0
+    var img = UIImage(named: "heavy_rain")
     
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
@@ -36,7 +38,10 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
         
         self.getLocations()
         self.getDetailedLocations()
-        println(self.detailedLocation)
+//        println(self.detailedLocation)
+        
+        var nib = UINib(nibName: "CustomTableViewCell", bundle: nil)
+        locationsTable.registerNib(nib, forCellReuseIdentifier: "customCell")
     }
 
     override func didReceiveMemoryWarning() {
@@ -58,10 +63,13 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel.text = self.detailedLocation[indexPath.row].city
+//        let cell = tableView.dequeueReusableCellWithIdentifier("locationCell", forIndexPath: indexPath) as UITableViewCell
+//        cell.textLabel.text = self.detailedLocation[indexPath.row].city
 //        cell.textLabel.text = self.detailedLocation[0].main
 //        cell.textLabel.text = "Hello"
+        var cell:CustomTableViewCell = self.locationsTable.dequeueReusableCellWithIdentifier("customCell") as CustomTableViewCell
+        cell.loadItem(self.detailedLocation[indexPath.row].city, icon: self.detailedLocation[indexPath.row].iconImg, maxTemp: self.detailedLocation[indexPath.row].temp_max, minTemp: self.detailedLocation[indexPath.row].temp_min)
+        
         return cell
     }
     
@@ -69,24 +77,24 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
         let fetchRequest = NSFetchRequest(entityName: "Location")
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Location] {
             self.locations = fetchResults
-            println("locations.count=\(locations.count)")
+            println("locations.cou  nt=\(locations.count)")
         }
     }
     
     func getDetailedLocations() {
-        self.detailedLocation = [Current]()
-        for (var i:Int = 0; i<self.locations.count; i++) {
-            CurrentWeather.getCurrent(self.locations[i].id, completion: {(result: Current) in
-                self.detailedLocation.append(result)
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.locationsTable.reloadData()
-                    self.threads--
-                    if(self.threads == 0) {
-                        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-                    }
-                })
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        self.threads++
+        self.getIds()
+        CurrentWeather.getCurrents(locationsIDs, completion: {(result: Array<Current>) in
+            self.detailedLocation = result
+            dispatch_async(dispatch_get_main_queue(), {
+                self.locationsTable.reloadData()
+                self.threads--
+                if(self.threads == 0) {
+                    UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+                }
             })
-        }
+        })
     }
     
     func reloadTable(notification: NSNotification){
@@ -94,6 +102,13 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
         self.getDetailedLocations()
         println(self.detailedLocation.count)
         self.locationsTable.reloadData()
+    }
+    
+    func getIds() {
+        locationsIDs = []
+        for location in locations {
+            self.locationsIDs.append(location.id)
+        }
     }
     
 

@@ -36,7 +36,7 @@ class Weather {
             let queue = NSOperationQueue()
             NSURLConnection.sendAsynchronousRequest(urlReq, queue: queue, completionHandler: { (response: NSURLResponse!, data: NSData!, error: NSError!) -> Void in
                 if (error != nil) {
-                    //println("2")
+                    //println("2")ةش
                     println("API error: \(error), \(error.userInfo)")
                 }
                 //println("3")
