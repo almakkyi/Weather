@@ -55,7 +55,7 @@ class AddLocationViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("suggestedLocationCell", forIndexPath: indexPath) as UITableViewCell
-        cell.textLabel.text = "\(suggestions[indexPath.row].name), \(suggestions[indexPath.row].country)"
+        cell.textLabel!.text = "\(suggestions[indexPath.row].name), \(suggestions[indexPath.row].country)"
         return cell
     }
     

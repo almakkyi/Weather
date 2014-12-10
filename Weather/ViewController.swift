@@ -28,6 +28,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var weekDay:Int = 0
     var dayornight:Int = 1
     
+    // Refresh the weather
+    var refreshControl:UIRefreshControl!
+    
     lazy var managedObjectContext : NSManagedObjectContext? = {
         let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
         if let managedObjectContext = appDelegate.managedObjectContext {
@@ -43,9 +46,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.viewDidLoad()
         
         self.getLocations()
-        
-        //TESTING
-//        CurrentWeather.getCurrents(["1","2","3","4","5"])
 
         // Hide the content when the app starts until the data loads
         self.weatherTable.alpha = 0.0
@@ -60,6 +60,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         // Page indicator
         self.pageController.numberOfPages = locations.count
         self.pageController.currentPage = 0
+        
+        // set up the attributed text for the refresh control
+        var refreshAttributedString = NSMutableAttributedString(string: "Pull To Refresh")
+        refreshAttributedString.addAttribute(NSForegroundColorAttributeName, value: UIColor.whiteColor(), range:  NSRange(location: 0, length: refreshAttributedString.length))
+        
+        // Settign up refresh
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(attributedString: refreshAttributedString)
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.weatherTable.addSubview(refreshControl)
         
         self.getWeather()
         self.getDay()
@@ -201,6 +211,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         
         self.getWeather()
         self.getDay()
+    }
+    
+    func refresh(sender: AnyObject) {
+        self.getWeather()
+        self.getDay()
+        
+        self.refreshControl.endRefreshing()
     }
     
     /*
