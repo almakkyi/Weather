@@ -73,6 +73,22 @@ class LocationsViewController: UIViewController, UITableViewDataSource, UITableV
         return cell
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            // delete the location from core data
+            let location = locations[indexPath.row]
+            managedObjectContext?.deleteObject(location)
+            
+            // delete the location from the list
+            self.locations.removeAtIndex(indexPath.row)
+            
+            // Refresh table
+            self.getLocations()
+            self.getDetailedLocations()
+            self.locationsTable.reloadData()
+        }
+    }
+    
     func getLocations() {
         let fetchRequest = NSFetchRequest(entityName: "Location")
         if let fetchResults = managedObjectContext!.executeFetchRequest(fetchRequest, error: nil) as? [Location] {
